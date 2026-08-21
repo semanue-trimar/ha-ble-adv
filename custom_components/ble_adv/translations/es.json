@@ -1,17 +1,17 @@
 {
-  "title": "Dispositivos controlados por publicidad BLE",
+  "title": "Dispositivos controlados mediante anuncios Bluetooth de bajo consumo",
   "config": {
     "step": {
       "user": {
-        "description": "¡Antes de comenzar, asegúrate de estar en la misma habitación que el dispositivo que quieres controlar!",
+        "description": "¡Antes de empezar, asegúrate de estar en la misma habitación que el dispositivo que quieres controlar!",
         "menu_options": {
-          "wait_config": "Duplicar la configuración de la app del móvil emparejado (Recomendado)",
+          "wait_config": "Copiar la configuración de la app móvil vinculada (Recomendado)",
           "pair": "Emparejamiento",
           "tools": "Herramientas y utilidades"
         }
       },
       "no_adapters": {
-        "description": "No se ha encontrado ningún adaptador Bluetooth compatible con publicidad BLE.\nPor favor, consulta la [Guía de resolución de problemas - Paso 1.2]({url}).",
+        "description": "No se ha encontrado ningún adaptador Bluetooth compatible con difusión de anuncios BLE.\nPor favor, consulta la [Guía de resolución de problemas - Paso 1.2]({url}).",
         "menu_options": {
           "abort_no_adapters": "Cancelar",
           "open_issue": "Abrir incidencia"
@@ -21,22 +21,22 @@
         "title": "Herramientas y utilidades",
         "description": "Sección de herramientas",
         "menu_options": {
-          "diag": "Volcado de diagnóstico",
-          "manual": "Entrada manual (Experto)",
-          "inject": "Inyectar datos RAW",
-          "listen_raw": "Escuchar publicidad BLE",
-          "decode_raw": "Decodificar publicidad BLE RAW"
+          "diag": "Descarga de diagnóstico",
+          "manual": "Entrada manual (Modo avanzado)",
+          "inject": "Inyectar tramas RAW",
+          "listen_raw": "Escanear anuncios BLE",
+          "decode_raw": "Decodificar anuncios BLE en formato RAW"
         }
       },
       "diag": {
-        "title": "Volcado de diagnóstico"
+        "title": "Descarga de diagnóstico"
       },
       "listen_raw": {
-        "title": "Escuchar publicidad BLE"
+        "title": "Escanear anuncios BLE"
       },
       "listen_raw_res": {
-        "title": "Escuchar publicidad BLE",
-        "description": "Publicidad BLE recibida:\n{advs}",
+        "title": "Escanear anuncios BLE",
+        "description": "Anuncios BLE capturados:\n{advs}",
         "menu_options": {
           "listen_raw": "Reintentar",
           "tools": "Volver a Herramientas"
@@ -44,7 +44,7 @@
       },
       "inject": {
         "title": "Inyección manual",
-        "description": "Para usuarios avanzados, inyectar datos en bruto (RAW)",
+        "description": "Para usuarios avanzados: inyección directa de tramas de datos en bruto (RAW)",
         "data": {
           "adapter_id": "Adaptador BLE ADV",
           "raw": "Datos RAW",
@@ -54,29 +54,29 @@
       },
       "inject_res": {
         "title": "Resultado de la inyección",
-        "description": "Inyección realizada.",
+        "description": "Inyección completada correctamente.",
         "menu_options": {
-          "inject": "Inyectar nuevos datos RAW",
+          "inject": "Inyectar nuevas tramas RAW",
           "tools": "Volver a Herramientas"
         }
       },
       "decode_raw": {
-        "title": "Decodificando publicidad BLE RAW",
+        "title": "Decodificando anuncios BLE RAW",
         "data": {
           "raw": "Datos RAW"
         }
       },
       "decode_raw_res": {
-        "title": "Resultado del descifrado BLE ADV RAW",
+        "title": "Resultado de la decodificación BLE ADV RAW",
         "description": "{conf}",
         "menu_options": {
-          "decode_raw": "Decodificar nuevos datos RAW",
+          "decode_raw": "Decodificar nuevas tramas RAW",
           "tools": "Volver a Herramientas"
         }
       },
       "manual": {
         "title": "Entrada manual",
-        "description": "Para usuarios experimentados, por ejemplo si migran desde ESPHome",
+        "description": "Para usuarios avanzados (por ejemplo, si migran desde ESPHome)",
         "data": {
           "name": "Nombre del dispositivo",
           "codec_id": "Códec",
@@ -86,10 +86,10 @@
         }
       },
       "wait_config": {
-        "title": "Escuchando configuración desde la app del móvil emparejado."
+        "title": "Esperando configuración desde la app móvil vinculada..."
       },
       "no_config": {
-        "description": "No se detectó ninguna configuración en 10 segundos",
+        "description": "No se detectó ninguna configuración en los últimos 10 segundos.",
         "menu_options": {
           "wait_config": "Reintentar",
           "abort_config": "Cancelar",
@@ -101,7 +101,7 @@
       },
       "pair": {
         "title": "Emparejamiento",
-        "description": "Selecciona el adaptador Bluetooth relevante y la aplicación móvil en las listas de abajo. Corta la corriente del dispositivo, vuelve a conectarla y pulsa el botón **Enviar** antes de 5 segundos (esto enviará las órdenes de emparejamiento)",
+        "description": "Selecciona el adaptador Bluetooth y la app móvil correspondiente en los desplegables. Desconecta el dispositivo de la corriente, vuelve a conectarlo y pulsa **Enviar** en menos de 5 segundos (esto transmitirá los comandos de vinculación).",
         "data": {
           "adapter_id": "Adaptador BLE ADV",
           "phone_app": "Aplicación móvil"
@@ -111,7 +111,7 @@
         "title": "Emparejamiento"
       },
       "confirm_pair": {
-        "description": "¿El emparejamiento fue correcto? Por lo general la luz parpadea si ha funcionado, aunque depende del tipo de luz...",
+        "description": "¿Se ha completado el emparejamiento? Por lo general la luz parpadea si ha funcionado, aunque depende del modelo...",
         "menu_options": {
           "pair": "Emparejamiento FALLIDO, reintentar",
           "confirm_no_abort": "Emparejamiento FALLIDO, cancelar",
@@ -120,7 +120,7 @@
       },
       "choose_adapter": {
         "title": "Selección de adaptador",
-        "description": "Más de un adaptador Bluetooth ha detectado la configuración. Selecciona el más cercano a tu dispositivo",
+        "description": "Varios adaptadores Bluetooth han capturado la configuración. Selecciona el más cercano a tu dispositivo.",
         "data": {
           "adapter_id": "Adaptador BLE ADV"
         }
@@ -133,20 +133,20 @@
           "confirm_no_another": "No, probar siguiente.",
           "confirm_no_abort": "No, cancelar.",
           "open_issue": "No, abrir incidencia",
-          "confirm_retry_last": "Reintentar la misma.",
-          "confirm_retry_all": "Reintentar desde la primera."
+          "confirm_retry_last": "Reintentar la actual.",
+          "confirm_retry_all": "Reintentar desde el principio."
         }
       },
       "open_issue": {
         "title": "Abrir incidencia",
-        "description": "1. Descarga el volcado de diagnóstico haciendo clic en el botón de abajo\n2. Abre una [incidencia]({url}) de Config Flow y adjunta el archivo.",
+        "description": "1. Descarga el archivo de diagnóstico pulsando el botón de abajo.\n2. Abre una [incidencia]({url}) del asistente de configuración y adjúntalo.",
         "menu_options": {
-          "diag": "Descargar volcado de diagnóstico"
+          "diag": "Descargar archivo de diagnóstico"
         }
       },
       "configure": {
         "title": "Configuración",
-        "description": "Configurando entidades, mando físico y parámetros técnicos.\nEstos parámetros se pueden modificar más adelante mediante la opción 'Reconfigurar'.",
+        "description": "Configurando entidades, mando físico y parámetros técnicos.\nEstos valores se pueden modificar más adelante con la opción «Reconfigurar».",
         "menu_options": {
           "config_entities": "Configurar Luces / Ventiladores",
           "config_remote": "Configurar otro controlador (Mando físico, ...)",
@@ -156,74 +156,74 @@
       },
       "config_entities": {
         "title": "Entidades controladas",
-        "description": "Selecciona las entidades que quieres crear y sus características",
+        "description": "Selecciona las entidades que deseas crear y define sus propiedades:",
         "sections": {
           "light_0": {
-            "name": "Luz principal",
+            "name": "Luz Principal",
             "data": {
               "type": "Tipo",
               "min_brightness": "Brillo mínimo",
-              "refresh_on_start": "Forzar refresco de color / brillo al ENCENDER",
+              "refresh_on_start": "Forzar actualización de color / brillo al ENCENDER",
               "reversed": "Invertir Frío / Cálido",
-              "forced_cmds": "Comandos enviados siempre, incluso si nada ha cambiado",
+              "forced_cmds": "Enviar comandos siempre (incluso si no hay cambios de estado)",
               "effects": "Modos de luz"
             }
           },
           "light_1": {
-            "name": "Segunda luz",
+            "name": "Segunda Luz",
             "data": {
               "type": "Tipo",
               "min_brightness": "Brillo mínimo",
-              "refresh_on_start": "Forzar refresco de color / brillo al ENCENDER",
+              "refresh_on_start": "Forzar actualización de color / brillo al ENCENDER",
               "reversed": "Invertir Frío / Cálido",
-              "forced_cmds": "Comandos enviados siempre, incluso si nada ha cambiado",
+              "forced_cmds": "Enviar comandos siempre (incluso si no hay cambios de estado)",
               "effects": "Modos de luz"
             }
           },
           "light_2": {
-            "name": "Tercera luz",
+            "name": "Tercera Luz",
             "data": {
               "type": "Tipo",
               "min_brightness": "Brillo mínimo",
-              "refresh_on_start": "Forzar refresco de color / brillo al ENCENDER",
+              "refresh_on_start": "Forzar actualización de color / brillo al ENCENDER",
               "reversed": "Invertir Frío / Cálido",
-              "forced_cmds": "Comandos enviados siempre, incluso si nada ha cambiado",
+              "forced_cmds": "Enviar comandos siempre (incluso si no hay cambios de estado)",
               "effects": "Modos de luz"
             }
           },
           "fan_0": {
-            "name": "Ventilador principal",
+            "name": "Ventilador Principal",
             "data": {
               "type": "Tipo",
-              "direction": "Admite cambio de sentido",
+              "direction": "Admite inversión de giro",
               "oscillating": "Admite oscilación",
-              "refresh_dir_on_start": "Forzar refresco del sentido al ENCENDER",
-              "refresh_osc_on_start": "Forzar refresco de la oscilación al ENCENDER",
-              "forced_cmds": "Comandos enviados siempre, incluso si nada ha cambiado",
+              "refresh_dir_on_start": "Forzar actualización del sentido de giro al ENCENDER",
+              "refresh_osc_on_start": "Forzar actualización de la oscilación al ENCENDER",
+              "forced_cmds": "Enviar comandos siempre (incluso si no hay cambios de estado)",
               "presets": "Modos de ventilador"
             }
           },
           "fan_1": {
-            "name": "Segundo ventilador",
+            "name": "Segundo Ventilador",
             "data": {
               "type": "Tipo",
-              "direction": "Admite cambio de sentido",
+              "direction": "Admite inversión de giro",
               "oscillating": "Admite oscilación",
-              "refresh_dir_on_start": "Forzar refresco del sentido al ENCENDER",
-              "refresh_osc_on_start": "Forzar refresco de la oscilación al ENCENDER",
-              "forced_cmds": "Comandos enviados siempre, incluso si nada ha cambiado",
+              "refresh_dir_on_start": "Forzar actualización del sentido de giro al ENCENDER",
+              "refresh_osc_on_start": "Forzar actualización de la oscilación al ENCENDER",
+              "forced_cmds": "Enviar comandos siempre (incluso si no hay cambios de estado)",
               "presets": "Modos de ventilador"
             }
           },
           "fan_2": {
-            "name": "Tercer ventilador",
+            "name": "Tercer Ventilador",
             "data": {
               "type": "Tipo",
-              "direction": "Admite cambio de sentido",
+              "direction": "Admite inversión de giro",
               "oscillating": "Admite oscilación",
-              "refresh_dir_on_start": "Forzar refresco del sentido al ENCENDER",
-              "refresh_osc_on_start": "Forzar refresco de la oscilación al ENCENDER",
-              "forced_cmds": "Comandos enviados siempre, incluso si nada ha cambiado",
+              "refresh_dir_on_start": "Forzar actualización del sentido de giro al ENCENDER",
+              "refresh_osc_on_start": "Forzar actualización de la oscilación al ENCENDER",
+              "forced_cmds": "Enviar comandos siempre (incluso si no hay cambios de estado)",
               "presets": "Modos de ventilador"
             }
           }
@@ -234,27 +234,27 @@
         "description": "Controlador vinculado:\n\n    Códec: {codec}\n    ID: {id}\n    Índice: {index}",
         "menu_options": {
           "config_remote_delete": "Eliminar el controlador vinculado",
-          "config_remote_update": "Modificar las opciones del controlador vinculado",
-          "wait_config_remote": "Reemplazar el controlador vinculado",
+          "config_remote_update": "Modificar opciones del controlador vinculado",
+          "wait_config_remote": "Sustituir el controlador vinculado",
           "configure": "Volver"
         }
       },
       "wait_config_remote": {
-        "title": "Configurar nuevo controlador vinculado"
+        "title": "Vincular nuevo mando o controlador"
       },
       "config_remote_update": {
         "title": "Configurar opciones del controlador vinculado",
         "description": "Controlador vinculado:\n\n    Códec: {codec}\n    ID: {id}\n    Índice: {index}",
         "data": {
-          "paired": "Controlling the Device",
-          "tr_set": "Translator Set"
+          "paired": "Controlando el dispositivo",
+          "tr_set": "Conjunto de traducción (Translator Set)"
         }
       },
       "config_technical": {
         "title": "Configurar opciones técnicas",
-        "description": "Cada comando se emite al adaptador seleccionado 'Repeticiones' veces, en un 'Intervalo' determinado (ms), respetando un retardo de 'Duración mínima' entre 2 comandos distintos.\n\n¡Modifícalo solo si sabes lo que haces!\n\nSe DESACONSEJA SERIAMENTE usar múltiples adaptadores; no se prestará soporte técnico si lo haces.",
+        "description": "Cada comando se emite al adaptador seleccionado tantas veces como indique «Repeticiones», con un «Intervalo» fijado (ms) y respetando un retardo de «Duración mínima» entre 2 comandos distintos.\n\n¡Modifícalo solo si sabes lo que haces!\n\nSe DESACONSEJA TOTALMENTE usar múltiples adaptadores; no se prestará soporte técnico si se activa esta opción.",
         "data": {
-          "tr_set": "Translator Set",
+          "tr_set": "Conjunto de traducción (Translator Set)",
           "adapter_ids": "Adaptador(es) BLE ADV",
           "interval": "Intervalo",
           "repeats": "Repeticiones",
@@ -262,7 +262,7 @@
         }
       },
       "finalize": {
-        "title": "Nombra tu dispositivo",
+        "title": "Nombre de tu dispositivo",
         "description": "¡Este es el último paso!",
         "data": {
           "name": "Nombre del dispositivo"
@@ -270,29 +270,29 @@
       }
     },
     "progress": {
-      "listen_raw": "Escuchando publicidad BLE\n{advs}",
+      "listen_raw": "Escaneando anuncios BLE...\n{advs}",
       "wait_pair": "Emparejamiento en curso...",
-      "wait_config": "Pulsa cualquier botón (preferiblemente Emparejar) en la app del móvil antes de {max_seconds}s.",
-      "agg_config": "Agregando datos de configuración.",
-      "blink": "Haciendo parpadear la luz con la configuración {nb}/{tot}:\n\n    Códec: {codec}\n    ID: {id}\n    Índice: {index}",
-      "wait_config_remote": "Pulsa cualquier botón (preferiblemente Emparejar) en el mando antes de {max_seconds}s."
+      "wait_config": "Pulsa cualquier botón (preferiblemente Emparejar) en la app del móvil en menos de {max_seconds} s.",
+      "agg_config": "Procesando datos de configuración...",
+      "blink": "Enviando parpadeo con la configuración {nb}/{tot}:\n\n    Códec: {codec}\n    ID: {id}\n    Índice: {index}",
+      "wait_config_remote": "Pulsa cualquier botón (preferiblemente Emparejar) en el mando en menos de {max_seconds} s."
     },
     "abort": {
-      "no_adapters": "No se ha encontrado ningún adaptador Bluetooth compatible con publicidad BLE. Cancelando.",
-      "no_config": "No se ha descubierto ni probado con éxito ninguna configuración.",
-      "not_implemented": "No implementado (todavía)",
-      "reconfigure_successful": "¡Reconfiguración realizada con éxito!",
-      "already_configured": "Ya hay un dispositivo configurado con la misma combinación (códec / ID / índice).\nMás detalles en la Guía de resolución de problemas - Paso 3.3"
+      "no_adapters": "No se ha encontrado ningún adaptador Bluetooth compatible con difusión BLE. Cancelando.",
+      "no_config": "No se ha descubierto ni validado ninguna configuración con éxito.",
+      "not_implemented": "Función no disponible por ahora.",
+      "reconfigure_successful": "¡Reconfiguración completada con éxito!",
+      "already_configured": "Ya existe un dispositivo registrado con estos mismos valores (códec / ID / índice).\nConsulta la Guía de resolución de problemas - Paso 3.3."
     },
     "error": {
-      "missing_entity": "Se debe configurar al menos un ventilador o una luz.",
-      "missing_adapter": "Se debe seleccionar al menos un adaptador."
+      "missing_entity": "Debes configurar al menos una luz o un ventilador.",
+      "missing_adapter": "Debes seleccionar al menos un adaptador."
     }
   },
   "selector": {
     "light": {
       "options": {
-        "cww": "Blanco Frío / Cálido",
+        "cww": "Blanco Frío / Cálido (CCT)",
         "onoff": "Solo Encendido / Apagado",
         "rgb": "RGB",
         "none": "Ninguno"
@@ -316,7 +316,7 @@
     },
     "effects": {
       "options": {
-        "nm": "Night Mode",
+        "nm": "Modo Noche",
         "rgb": "Ciclo RGB",
         "rgbk": "Ciclo RGBK"
       }
@@ -324,41 +324,41 @@
     "presets": {
       "options": {
         "breeze": "Modo Brisa",
-        "sleep": "Modo dormir"
+        "sleep": "Modo Noche"
       }
     }
   },
   "entity": {
     "fan": {
       "fan_0": {
-        "name": "Ventilador principal",
+        "name": "Ventilador Principal",
         "state_attributes": {
           "preset_mode": {
             "state": {
               "breeze": "Modo Brisa",
-              "sleep": "Modo dormir"
+              "sleep": "Modo Noche"
             }
           }
         }
       },
       "fan_1": {
-        "name": "Segundo ventilador",
+        "name": "Segundo Ventilador",
         "state_attributes": {
           "preset_mode": {
             "state": {
               "breeze": "Modo Brisa",
-              "sleep": "Modo dormir"
+              "sleep": "Modo Noche"
             }
           }
         }
       },
       "fan_2": {
-        "name": "Tercer ventilador",
+        "name": "Tercer Ventilador",
         "state_attributes": {
           "preset_mode": {
             "state": {
               "breeze": "Modo Brisa",
-              "sleep": "Modo dormir"
+              "sleep": "Modo Noche"
             }
           }
         }
@@ -366,11 +366,11 @@
     },
     "light": {
       "light_0": {
-        "name": "Luz principal",
+        "name": "Luz Principal",
         "state_attributes": {
           "effect": {
             "state": {
-              "nm": "Night Mode",
+              "nm": "Modo Noche",
               "rgb": "Ciclo RGB",
               "rgbk": "Ciclo RGBK"
             }
@@ -378,11 +378,11 @@
         }
       },
       "light_1": {
-        "name": "Segunda luz",
+        "name": "Segunda Luz",
         "state_attributes": {
           "effect": {
             "state": {
-              "nm": "Night Mode",
+              "nm": "Modo Noche",
               "rgb": "Ciclo RGB",
               "rgbk": "Ciclo RGBK"
             }
@@ -390,11 +390,11 @@
         }
       },
       "light_2": {
-        "name": "Tercera luz",
+        "name": "Tercera Luz",
         "state_attributes": {
           "effect": {
             "state": {
-              "nm": "Night Mode",
+              "nm": "Modo Noche",
               "rgb": "Ciclo RGB",
               "rgbk": "Ciclo RGBK"
             }
@@ -406,31 +406,31 @@
   "services": {
     "inject_raw": {
       "name": "Inyectar BLE ADV RAW",
-      "description": "Inyectar publicidad BLE en bruto en formato hexadecimal binario.",
+      "description": "Inyecta tramas de anuncios BLE sin procesar en formato hexadecimal binario.",
       "fields": {
         "adapter_id": {
           "name": "ID del adaptador",
-          "description": "El nombre del adaptador que se va a utilizar."
+          "description": "Identificador o nombre del adaptador que se utilizará."
         },
         "raw": {
-          "name": "BLE ADV RAW",
-          "description": "La emisión publicitaria BLE en bruto que se enviará."
+          "name": "Trama RAW BLE ADV",
+          "description": "Trama de anuncio BLE en bruto que se enviará."
         },
         "interval": {
           "name": "Intervalo",
-          "description": "El intervalo entre 2 emisiones, en ms."
+          "description": "Intervalo entre 2 emisiones consecutivas (en ms)."
         },
         "repeat": {
           "name": "Repeticiones",
-          "description": "La emisión se enviará 'Repeticiones' veces."
+          "description": "Número de veces que se transmitirá la emisión."
         },
         "device_queue": {
-          "name": "Nombre de la cola del dispositivo",
-          "description": "El nombre de la cola del dispositivo objetivo, no corresponde a ningún ID: se usa para separar emisiones entre distintos dispositivos y aplicar la gestión de cola adecuada."
+          "name": "Nombre de cola del dispositivo",
+          "description": "Nombre de la cola del dispositivo destino (no corresponde a ningún ID de hardware); se utiliza para organizar y diferenciar las emisiones entre dispositivos distintos."
         },
         "duration": {
           "name": "Duración mínima",
-          "description": "La duración mínima antes de poder enviar otra emisión con el mismo Adaptador/Dispositivo, en ms."
+          "description": "Tiempo mínimo de espera antes de poder emitir otro comando con el mismo adaptador/dispositivo (en ms)."
         }
       }
     }
