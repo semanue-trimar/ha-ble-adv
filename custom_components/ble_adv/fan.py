@@ -2,7 +2,10 @@
 
 from __future__ import annotations
 
+import contextlib
+import json
 from math import ceil
+from pathlib import Path
 from typing import Any
 
 from homeassistant.components.fan import (
@@ -42,8 +45,28 @@ from .const import (
 )
 from .device import ATTR_IS_ON, BleAdvDevice, BleAdvEntAttr, BleAdvEntity, BleAdvStateAttribute
 
+TRANSLATIONS_PATH = Path(__file__).parent / "translations"
 
-def create_entity(options: dict[str, Any], device: BleAdvDevice, index: int) -> BleAdvFan:
+
+def _load_preset_mappings(language: str) -> tuple[dict[str, str], dict[str, str]]:
+    """Load preset mappings dynamically from translations directory."""
+    display_map: dict[str, str] = {}
+    for lang in (language, language.split("-", maxsplit=1)[0], "en"):
+        lang_file = TRANSLATIONS_PATH / f"{lang}.json"
+        if lang_file.is_file():
+            with contextlib.suppress(OSError, json.JSONDecodeError):
+                with lang_file.open(encoding="utf-8") as f:
+                    data = json.load(f)
+                display_map = data.get("selector", {}).get("presets", {}).get("options", {})
+                if display_map:
+                    break
+
+    canonical_map = {v: k for k, v in display_map.items()}
+    canonical_map.update({k: k for k in display_map})
+    return display_map, canonical_map
+
+
+def create_entity(options: dict[str, Any], device: BleAdvDevice, index: int, language: str = "en") -> BleAdvFan:
     """Create a Fan Entity from the entry."""
     features = FanEntityFeature.TURN_ON | FanEntityFeature.TURN_OFF | FanEntityFeature.SET_SPEED
     presets = options.get(CONF_PRESETS, [])
@@ -54,7 +77,7 @@ def create_entity(options: dict[str, Any], device: BleAdvDevice, index: int) -> 
     if len(presets) > 0:
         features |= FanEntityFeature.PRESET_MODE
 
-    fan = BleAdvFan(device, index, int(options[CONF_TYPE][:-5]), features, presets)
+    fan = BleAdvFan(device, index, int(options[CONF_TYPE][:-5]), features, presets, language)
     fan.refresh_dir_on_start = options.get(CONF_REFRESH_DIR_ON_START, False)
     fan.refresh_osc_on_start = options.get(CONF_REFRESH_OSC_ON_START, False)
     fan.set_forced_cmds(options.get(CONF_FORCED_CMDS, []))
@@ -65,12 +88,15 @@ def create_entity(options: dict[str, Any], device: BleAdvDevice, index: int) -> 
 async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry, async_add_entities: AddEntitiesCallback) -> None:
     """Entry setup."""
     device: BleAdvDevice = hass.data[DOMAIN][entry.entry_id]
-    entities = [create_entity(options, device, i) for i, options in enumerate(entry.data[CONF_FANS]) if CONF_TYPE in options]
+    language = hass.config.language or "en"
+    entities = [create_entity(options, device, i, language) for i, options in enumerate(entry.data[CONF_FANS]) if CONF_TYPE in options]
     async_add_entities(entities, True)
 
 
 class BleAdvFan(BleAdvEntity, FanEntity):
     """Ble Adv Fan Entity."""
+
+    _attr_icon = "mdi:ceiling-fan"
 
     _state_attributes = frozenset(
         [
@@ -93,19 +119,19 @@ class BleAdvFan(BleAdvEntity, FanEntity):
         speed_count: int,
         features: FanEntityFeature,
         presets: list[str],
+        language: str = "en",
     ) -> None:
         super().__init__(FAN_TYPE, None, device, index)
         self._attr_supported_features: FanEntityFeature = features
         self._attr_speed_count: int = speed_count
-        self._attr_preset_modes = presets
+        self._display_map, self._canonical_map = _load_preset_mappings(language)
+        self._attr_preset_modes = [self._display_map.get(p, p) for p in presets]
 
-    # redefining 'current_direction' as the attribute name is messy, and not the one defined in the last_state
     @property
     def current_direction(self) -> str | None:
         """Return the current direction of the fan."""
         return self._attr_direction
 
-    # redefining 'percentage' in order to consider it 0 when a preset mode is setup
     @property
     def percentage(self) -> int | None:
         """Return the percentage of the fan."""
@@ -119,7 +145,7 @@ class BleAdvFan(BleAdvEntity, FanEntity):
             ATTR_SPEED_COUNT: self._attr_speed_count,
             ATTR_DIR: self._attr_direction == DIRECTION_FORWARD,
             ATTR_OSC: self._attr_oscillating,
-            ATTR_PRESET: self._attr_preset_mode,
+            ATTR_PRESET: self._canonical_map.get(self._attr_preset_mode, self._attr_preset_mode),
             ATTR_SPEED: ceil(percentage_to_ranged_value((1, self._attr_speed_count), eff_percentage)),
         }
 
@@ -147,9 +173,10 @@ class BleAdvFan(BleAdvEntity, FanEntity):
             speed_count = ent_attr.attrs.get(ATTR_SPEED_COUNT, self._attr_speed_count)
             self._attr_percentage = ranged_value_to_percentage((1, speed_count), ent_attr.attrs[ATTR_SPEED])
         if ATTR_PRESET in ent_attr.chg_attrs:
-            self._attr_preset_mode = ent_attr.attrs[ATTR_PRESET]
+            raw_preset = ent_attr.attrs[ATTR_PRESET]
+            self._attr_preset_mode = self._display_map.get(raw_preset, raw_preset) if raw_preset is not None else None
 
-    async def async_turn_on(self, percentage: int | None = None, preset_mode: str | None = None, **kwargs) -> None:  # noqa: ANN003
+    async def async_turn_on(self, percentage: int | None = None, preset_mode: str | None = None, **kwargs: Any) -> None:
         """Turn Entity on / set percentage / preset mode. Percentage is taking precedence over preset_mode."""
         if (percent := kwargs.get(ATTR_PERCENTAGE, percentage)) is not None:
             await self.async_set_percentage(percent)
@@ -175,4 +202,5 @@ class BleAdvFan(BleAdvEntity, FanEntity):
 
     async def async_set_preset_mode(self, preset_mode: str) -> None:
         """Set the preset mode of the fan."""
-        await self._handle_state_change({ATTR_IS_ON: True, ATTR_PRESET_MODE: preset_mode})
+        canonical_preset = self._canonical_map.get(preset_mode, preset_mode)
+        await self._handle_state_change({ATTR_IS_ON: True, ATTR_PRESET_MODE: canonical_preset})
