@@ -254,7 +254,7 @@
       },
       "config_remote": {
         "title": "Configurar controlador vinculado",
-        "description": "Controlador vinculado:\n\n    Códec: {codec}\n    ID: {id}\n    Índice: {index}",
+        "description": "Controlador vinculado:\n\n    Nombre: {name}\n\n    Códec: {codec}\n    ID: {id}\n    Índice: {index}",
         "menu_options": {
           "config_remote_delete": "Eliminar este controlador",
           "config_remote_update": "Cambiar las opciones del controlador",
@@ -268,6 +268,7 @@
         "title": "Opciones del controlador vinculado",
         "description": "Controlador vinculado:\n\n    Códec: {codec}\n    ID: {id}\n    Índice: {index}",
         "data": {
+          "name": "Nombre",
           "paired": "Controla el dispositivo",
           "tr_set": "Conjunto de traductores"
         }
@@ -344,7 +345,7 @@
     },
     "effects": {
       "options": {
-        "nm": "Modo noche",
+        "nm": "Modo Noche",
         "rgb": "Ciclo RGB",
         "rgbk": "Ciclo RGBK"
       }
@@ -360,9 +361,9 @@
         "default": "Por defecto",
         "rev_on_off": "Invertir encendido y apagado",
         "fl": "Parpadeo",
-        "no_nm": "Sin modo noche",
-        "nm_as_effect": "Modo noche como efecto",
-        "nm_as_second_light": "Modo noche como segunda luz"
+        "no_nm": "Sin Modo Noche",
+        "nm_as_effect": "Modo Noche como efecto",
+        "nm_as_second_light": "Modo Noche como segunda luz"
       }
     }
   },
@@ -374,7 +375,7 @@
     },
     "switch": {
       "silent": {
-        "name": "Modo sin comandos"
+        "name": "Modo Sin Comandos"
       }
     },
     "fan": {
@@ -418,7 +419,7 @@
         "state_attributes": {
           "effect": {
             "state": {
-              "nm": "Modo noche",
+              "nm": "Modo Noche",
               "rgb": "Ciclo RGB",
               "rgbk": "Ciclo RGBK"
             }
@@ -430,7 +431,7 @@
         "state_attributes": {
           "effect": {
             "state": {
-              "nm": "Modo noche",
+              "nm": "Modo Noche",
               "rgb": "Ciclo RGB",
               "rgbk": "Ciclo RGBK"
             }
@@ -442,7 +443,7 @@
         "state_attributes": {
           "effect": {
             "state": {
-              "nm": "Modo noche",
+              "nm": "Modo Noche",
               "rgb": "Ciclo RGB",
               "rgbk": "Ciclo RGBK"
             }
@@ -481,6 +482,15 @@
           "description": "Tiempo mínimo que debe pasar antes de poder enviar otra señal con el mismo adaptador y dispositivo, en milisegundos."
         }
       }
+    }
+  },
+  "device_automation": {
+    "trigger_type": {
+      "any_entity_state": "El estado de una entidad ha cambiado",
+      "enc_cmd": "Comando recibido"
+    },
+    "action_type": {
+      "enc_cmd": "Enviar comando"
     }
   }
 }
